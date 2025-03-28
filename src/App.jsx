@@ -5,9 +5,8 @@ import './App.css';
 export default function CostCalculator() {
   const [price, setPrice] = useState("");
   const [weight, setWeight] = useState("");
-  const [markupEnabled, setMarkupEnabled] = useState(false);
   const [markup, setMarkup] = useState("");
-  const [exchangeRate, setExchangeRate] = useState("");
+  const [exchangeRate, setExchangeRate] = useState(10.7);
   const [customDiscount, setCustomDiscount] = useState("");
 
   const maxPrice = 2200;
@@ -46,7 +45,7 @@ export default function CostCalculator() {
   const { cost, method } = calculateCost();
 
   const calculateFinalPrice = () => {
-    if (!markupEnabled) return null;
+    if (!cost) return null;
     const markupValue = parseFloat(markup) / 100;
     const rateValue = parseFloat(exchangeRate);
 
@@ -66,40 +65,35 @@ export default function CostCalculator() {
 
   return (
     <div className="container">
-      <div className="form-group">
-        <label>Ціна товару</label>
-        <input
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          type="number"
-          placeholder="Введіть ціну"
-        />
+      <div className="wrapper">
+        <div className="form-group">
+          <label>Ціна нетто у постачальника в PLN</label>
+          <input
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            type="number"
+            placeholder="Введіть ціну"
+          />
+        </div>
+        <div className="form-group">
+          <label>Вага товару в кг</label>
+          <input
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            type="number"
+            placeholder="Введіть вагу"
+          />
+        </div>
+        <div className="result">
+          <strong>Cобівартість (PLN):</strong> {cost}
+        </div>
+        <div className="result method">
+          <span>*метод розрахунку:</span> {method}
+        </div>
       </div>
-      <div className="form-group">
-        <label>Вага товару</label>
-        <input
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-          type="number"
-          placeholder="Введіть вагу"
-        />
-      </div>
-      <div className="result">
-        <strong>Розрахована собівартість (PLN):</strong> {cost}
-      </div>
-      <div className="result">
-        <strong>Метод розрахунку:</strong> {method}
-      </div>
-      <div className="checkbox-container">
-        <input
-          type="checkbox"
-          checked={markupEnabled}
-          onChange={() => setMarkupEnabled(!markupEnabled)}
-        />
-        <label>Додати націнку</label>
-      </div>
-      {markupEnabled && (
-        <>
+
+      <>
+        <div className="wrapper">
           <div className="form-group">
             <label>% Націнки</label>
             <input
@@ -118,14 +112,16 @@ export default function CostCalculator() {
               placeholder="Введіть курс"
             />
           </div>
-          <div className="result">
+          <div className="result final-price">
             <strong>Кінцева ціна (грн):</strong> {calculateFinalPrice()}
           </div>
+        </div>
+        <div className="wrapper">
           <div className="result">
-            <strong>Знижка 2%:</strong> {calculateDiscount(finalPrice, 2)}
+            <span>Знижка 2%:</span> {calculateDiscount(finalPrice, 2)}
           </div>
           <div className="result">
-            <strong>Знижка 4%:</strong> {calculateDiscount(finalPrice, 4)}
+            <span>Знижка 4%:</span> {calculateDiscount(finalPrice, 4)}
           </div>
           <div className="form-group">
             <label>Кастомна знижка (%)</label>
@@ -137,10 +133,10 @@ export default function CostCalculator() {
             />
           </div>
           <div className="result">
-            <strong>Сума кастомної знижки:</strong> {customDiscount ? calculateDiscount(finalPrice, parseFloat(customDiscount)) : "-"}
+            <strong>Кастомна знижка:</strong> {customDiscount ? calculateDiscount(finalPrice, parseFloat(customDiscount)) : "-"}
           </div>
-        </>
-      )}
+        </div>
+      </>
     </div>
   );
 }
