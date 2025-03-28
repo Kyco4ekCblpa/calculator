@@ -8,7 +8,6 @@ export default function CostCalculator() {
   const [markup, setMarkup] = useState("");
   const [exchangeRate, setExchangeRate] = useState(10.7);
   const [customDiscount, setCustomDiscount] = useState("");
-  const [checkNetto, setCheckNetto] = useState(0);
 
   const maxPrice = 1800;
   const maxWeight = 55;
