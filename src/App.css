@@ -95,3 +95,10 @@ input:focus {
 .wrapper:last-child {
   margin-bottom: 0;
 }
+
+#brutto {
+  color: rgb(196, 0, 0);
+  font-weight: bold;
+
+  text-decoration: underline;
+}

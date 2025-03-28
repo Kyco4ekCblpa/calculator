@@ -8,13 +8,14 @@ export default function CostCalculator() {
   const [markup, setMarkup] = useState("");
   const [exchangeRate, setExchangeRate] = useState(10.7);
   const [customDiscount, setCustomDiscount] = useState("");
+  const [checkNetto, setCheckNetto] = useState(0);
 
   const maxPrice = 1800;
   const maxWeight = 55;
   const priceForNorm = 200;
 
   const calculateCost = () => {
-    const priceValue = parseFloat(price);
+    const priceValue = parseFloat(price / 1.23);
     const weightValue = parseFloat(weight);
 
     if (isNaN(priceValue) || isNaN(weightValue) || priceValue <= 0 || weightValue <= 0) {
@@ -67,13 +68,14 @@ export default function CostCalculator() {
     <div className="container">
       <div className="wrapper">
         <div className="form-group">
-          <label>Ціна нетто у постачальника в PLN</label>
+          <label>Ціна <span id="brutto">брутто</span> у постачальника в PLN</label>
           <input
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             type="number"
             placeholder="Введіть ціну"
           />
+
         </div>
         <div className="form-group">
           <label>Вага товару в кг</label>
