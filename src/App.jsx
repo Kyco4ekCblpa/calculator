@@ -10,9 +10,9 @@ export default function CostCalculator() {
   const [exchangeRate, setExchangeRate] = useState("");
   const [customDiscount, setCustomDiscount] = useState("");
 
-  const maxPrice = 1800;
+  const maxPrice = 2200;
   const maxWeight = 55;
-  const priceForNorm = 180;
+  const priceForNorm = 200;
 
   const calculateCost = () => {
     const priceValue = parseFloat(price);
