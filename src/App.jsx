@@ -85,7 +85,7 @@ export default function CostCalculator() {
         />
       </div>
       <div className="result">
-        <strong>Розрахована собівартість:</strong> {cost}
+        <strong>Розрахована собівартість (PLN):</strong> {cost}
       </div>
       <div className="result">
         <strong>Метод розрахунку:</strong> {method}
